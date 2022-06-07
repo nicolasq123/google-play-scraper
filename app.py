@@ -19,17 +19,23 @@ trans_dict = {
 
 @app.route('/', methods=["GET"])
 def index():
+    data = {
+        "c": 0,
+        "d": {},
+    }
     package = request.args.get("package")
+    if not package:
+        data["c"] = -1
+        data["m"] = "package empty error"
+        return jsonify(data) 
+
     lang = request.args.get("lang", "en")
     if not lang:
         lang = 'en'
     country = request.args.get("country", "us")
     if not country:
         country = "us"
-    data = {
-        "c": 0,
-        "d": {},
-    }
+
     try:
         result = gapp(
             package,

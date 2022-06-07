@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Any, Dict
 
 from google_play_scraper.constants.element import ElementSpecs
@@ -48,5 +49,18 @@ def app(app_id: str, lang: str = "en", country: str = "us") -> Dict[str, Any]:
 
     result["appId"] = app_id
     result["url"] = url
+    result["category"] = get_category_from_html(dom)
 
     return result
+
+def get_category_from_html(html):
+    category = re.search(r'"applicationCategory":"(.*?)"', html)
+    if category is not None:
+        category = category.group(1)
+        category_link = "/store/apps/category/{}".format(category)
+    else:
+        category = ""
+        category_link = ""
+    return category
+    # app_data['Category'] = category
+    # app_data['CategoryLink'] = category_link

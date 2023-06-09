@@ -1,9 +1,11 @@
+IMAGE_PATH="Your/image/path"
+
 docker_build_push:\
 	docker_build \
 	docker_push \
 
 docker_build:
-	docker build . -t registry.umlife.net:443/adxmi/adn/googleplayscraper:latest
+	docker build . -t $(IMAGE_PATH)/googleplayscraper:latest
 
 docker_push:
-	docker push registry.umlife.net:443/adxmi/adn/googleplayscraper:latest
+	docker push $(IMAGE_PATH)/googleplayscraper:latest

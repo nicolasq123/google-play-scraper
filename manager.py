@@ -1,4 +1,5 @@
 from google_play_scraper import app as gapp
+from google_play_scraper import remove_html_tags
 from flask import Flask
 from flask import request, jsonify
 
@@ -50,7 +51,7 @@ def index():
             tmp['videos'] = [tmp['videos']]
         else:
             tmp['videos'] = []
-
+        tmp['description'] = remove_html_tags(tmp['description'])
         data['d'] = tmp
     except Exception as e:
         data = {
